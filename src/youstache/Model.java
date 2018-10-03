@@ -2,12 +2,6 @@ package youstache;
 
 import java.awt.Point;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -22,6 +16,7 @@ public class Model extends Observable {
 	 * The model is a list of images loaded from a directory
 	 */
 	public ArrayList<ImageModel> images;
+        public Boolean moustache = false;
 
 	/**
 	 * The index of the currently selected image
@@ -53,6 +48,7 @@ public class Model extends Observable {
 	public void selectImage(int item) {
 		this.indexOfSelected = item;
 		this.setChanged();
+                this.moustache=false;
 		this.notifyObservers();
 	}
 	
@@ -63,9 +59,12 @@ public class Model extends Observable {
 	 * @param coords
 	 */
 	public void pinMoustache(Point coords) {
+            if(!moustache){
 		this.images.get(this.indexOfSelected).moustacheLocation = coords;
 		this.setChanged();
+                this.moustache=true;
 		this.notifyObservers();
+            }
 	}
 
 }
